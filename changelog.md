@@ -1,3 +1,10 @@
+## v1.0.9
+
+- Bumped to Geode v5.10.1.
+- Added extra support for Better Gauntlets.
+- Updated the Gauntlets Deluxe button sprite base to use CircleButtonSprite to match the rest of the gauntlet layer UI.
+- Replaced the _other_ old badge system to use [**Badgified**'s] API instead as Badgify will not be maintained after 2.2081.
+
 ## v1.0.8
 
 - Added **Discord Linking** in the gauntlet layer

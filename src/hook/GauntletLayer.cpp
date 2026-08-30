@@ -8,20 +8,34 @@ class $modify(GDXHookGauntletSelectLayer, GauntletSelectLayer) {
     bool init(int unused) {
         if (!GauntletSelectLayer::init(unused)) return false;
 
-        // layout gauntlet in vanilla gd
         if (auto topRight = static_cast<CCMenu*>(this->getChildByID("top-right-menu"))) {
+            
             auto gauntletSpr = CCSprite::createWithSpriteFrameName("GDX_gauntletDeluxe.png"_spr);
-            auto gauntletBtnSpr = AccountButtonSprite::create(gauntletSpr, AccountBaseColor::Gray, AccountBaseSize::Normal);
+
+            auto color = Loader::get()->getLoadedMod("dasshu.better-gauntlets")
+                ? CircleBaseColor::Green
+                : CircleBaseColor::Gray;
+
+            auto gauntletBtnSpr = CircleButtonSprite::create(
+                gauntletSpr,
+                color,
+                geode::CircleBaseSize::Medium
+            );
+            gauntletBtnSpr->setScale(0.75);
+
             auto gauntletBtn = CCMenuItemSpriteExtra::create(
-                gauntletBtnSpr, this, menu_selector(GDXHookGauntletSelectLayer::onGauntletButtonClick));
-            gauntletBtn->setID("rated-layouts-gauntlets-button"_spr);
+                gauntletBtnSpr,
+                this,
+                menu_selector(GDXHookGauntletSelectLayer::onGDXButtonClick)
+            );
+            gauntletBtn->setID("gauntlets-deluxe-button"_spr);
             topRight->addChild(gauntletBtn);
             topRight->updateLayout();
         }
         return true;
     }
 
-    void onGauntletButtonClick(CCObject*) {
+    void onGDXButtonClick(CCObject*) {
         auto scene = CCScene::create();
         scene->addChild(GDXGauntletLayer::create());
         CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));

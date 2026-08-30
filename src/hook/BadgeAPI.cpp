@@ -2,9 +2,10 @@
 #include "../include/GDXConstant.hpp"
 #include <Geode/cocos/sprite_nodes/CCSprite.h>
 #include <argon/argon.hpp>
-#include <alphalaneous.badgify/include/Badgify.hpp>
+#include <dasshu.badgified/include/Badgified.hpp>
 
 using namespace geode::prelude;
+using namespace dasshu::badgified;
 
 namespace {
     struct UserRoles {
@@ -102,48 +103,49 @@ namespace {
 }
 
 $execute {
-    alpha::badgify::registerBadge(
+    registerBadge(
         "GDX-manager-badge"_spr,
         "Gauntlet Manager",
         "This user has the same ability as <cl>contributor</c> but can also <cg>create online gauntlets</c> and <cc>create gauntlet tags</c> in <cr>Gauntlets Deluxe</c>.",
-        [](const alpha::badgify::Badge& badge) {
+        [](const Badge& badge) {
             int targetAccountId = badge.user ? badge.user->m_accountID : 0;
             if (targetAccountId == 0) return;
 
             fetchUserRoles(targetAccountId, [badge](const UserRoles& roles) {
                 if (roles.isManager) {
-                    alpha::badgify::showBadge(badge, CCSprite::createWithSpriteFrameName("GDX_manager_badge.png"_spr));
+                    showBadge(badge, CCSprite::createWithSpriteFrameName("GDX_manager_badge.png"_spr));
                 }
             });
         });
 
-    alpha::badgify::registerBadge(
+    registerBadge(
         "GDX-contributor-badge"_spr,
         "Gauntlet Contributor",
         "This user has the ability to <cl>edit created gauntlets</c>, <co>manage the leaderboard</c> is the one <cg>in charge of looking over gauntlet ideas</c> from <cy>other users</c> in <cr>Gauntlets Deluxe</c>.",
-        [](const alpha::badgify::Badge& badge) {
+        [](const Badge& badge) {
             int targetAccountId = badge.user ? badge.user->m_accountID : 0;
             if (targetAccountId == 0) return;
 
             fetchUserRoles(targetAccountId, [badge](const UserRoles& roles) {
                 if (roles.isContributor) {
-                    alpha::badgify::showBadge(badge, CCSprite::createWithSpriteFrameName("GDX_contributor_badge.png"_spr));
+                    showBadge(badge, CCSprite::createWithSpriteFrameName("GDX_contributor_badge.png"_spr));
                 }
             });
         });
 
-    alpha::badgify::registerBadge(
+    registerBadge(
         "GDX-leaderboardmod-badge"_spr,
         "Gauntlet Leaderboard Mod",
         "This user has the ability to <cg>manage the leaderboards</c>, and <co>Ban/Unban users</c> in <cr>Gauntlets Deluxe</c>.",
-        [](const alpha::badgify::Badge& badge) {
+        [](const Badge& badge) {
             int targetAccountId = badge.user ? badge.user->m_accountID : 0;
             if (targetAccountId == 0) return;
 
             fetchUserRoles(targetAccountId, [badge](const UserRoles& roles) {
                 if (roles.isLeaderboardMod) {
-                    alpha::badgify::showBadge(badge, CCSprite::createWithSpriteFrameName("GDX_leaderboard_badge.png"_spr));
+                    showBadge(badge, CCSprite::createWithSpriteFrameName("GDX_leaderboard_badge.png"_spr));
                 }
             });
         });
 }
+    
